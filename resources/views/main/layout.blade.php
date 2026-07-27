@@ -49,6 +49,7 @@
         </ul>
         <div class="d-flex gap-3 align-items-center">
           <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Get Started</a>
+          <a href="{{'admin_login'}}" class="btn btn-primary">Admin Login</a>
         </div>
       </div>
     </div>

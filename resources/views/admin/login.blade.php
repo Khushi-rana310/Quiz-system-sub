@@ -29,13 +29,13 @@
           <p class="text-muted mb-0">Sign in to your admin workspace.</p>
         </div> -->
         @error('user')
-        <div class="text-red-500">{{$message}}</div>
+        <div class="text-red">{{$message}}</div>
         @enderror
         <div class="mb-3">
             <label class="form-label" for="username">Username</label>
             <input class="form-control" id="username" type="text" name="username">
             @error('username')
-            <div class="text-red-500">{{$message}}</div>
+            <div class="text-red">{{$message}}</div>
             @enderror
             
         </div>
@@ -47,7 +47,7 @@
             </div>
             <input class="form-control" id="loginPassword" type="password"  name="password">
             @error('password')
-            <div class="text-red-500">{{$message}}</div>
+            <div class="text-red">{{$message}}</div>
             @enderror
         </div>
 
