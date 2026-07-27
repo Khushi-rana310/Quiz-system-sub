@@ -3,11 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Main\landingpage;
 use App\Http\Controllers\Admin\Homepage;
+use App\Http\Controllers\User\LoginController;
 
 Route::get('/', [landingpage::class,'index']);
-
-
-
 
 Route::controller(Homepage::class)->group(function(){
 
@@ -34,4 +32,8 @@ Route::get('quiz_list/{id}/{name}','quiz_list')->name('quizlist');
 
 });
 
+//user Login
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::get('/dashboard', [LoginController::class, 'dashboard'])->name('user.dashboard');
 

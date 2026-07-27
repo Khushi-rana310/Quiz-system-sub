@@ -14,7 +14,7 @@
               </svg></span>
             <span class="ms-1">New Courses Available</span></span>
           <h1 class="display-4 fw-bold  mt-4">
-            Master New Skills
+            Enhance your learning with <span class="text-primary">Expert Mentors</span> and
             <span class="text-primary">Online Anytime,</span>
             Anywhere
           </h1>
