@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 use App\Models\Admin\Adminmodel;
+use App\Models\Admin\QuizModel;
 use Illuminate\Database\Eloquent\Model;
 
 class Catergory extends Model
@@ -18,6 +19,10 @@ class Catergory extends Model
     public function creator()
     {
         return $this->belongsTo(Adminmodel::class, 'creater_id', 'id');
+    }
+
+    public function quizs(){
+        return $this->hasMany(QuizModel::class,'category_id');
     }
 
 

@@ -147,7 +147,7 @@ class Homepage extends Controller
 
     }
 
-    public function addquiz(){
+    public function addquiz(Request $request){
         $admin_data = Session::get('admin');
         $category_table = Catergory::get();
         $total_mcq_question = 0;
@@ -162,7 +162,10 @@ class Homepage extends Controller
                 //        'category_id'=>$cat_id,
                 //        'created_at'=>now()
                 //     ]);
-
+                $request->validate([
+                    'quiz_name'   => 'required|string|max:255',
+                    'category_id' => 'required|integer',
+                ]);              
              $quiz = new QuizModel();
              $quiz->name = $quiz_name;
              $quiz->category_id = $cat_id;
