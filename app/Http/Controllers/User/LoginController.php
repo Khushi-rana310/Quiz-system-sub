@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\User\Usermodel;
+use App\Models\Admin\Catergory;
 
 
 class LoginController extends Controller
 {
-    public function index()
-    {
+    public function index() {
         return view('user/login');
     }
 
@@ -66,8 +66,10 @@ class LoginController extends Controller
         return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
     }
 
-    public function dashboard()
-    {
-        return view('user/dashboard');
+    public function logout(){
+        if(Session::has('users')){
+           Session::forget('users');
+           return redirect('login');
+        }
     }
 }

@@ -39,11 +39,11 @@
           <span class="nav-text">Users</span>
         </a>
 
-        <a class="nav-link" href="{{'categories'}}">
+        <a class="nav-link" href="{{ route('create_cat_view') }}">
           <span class="nav-icon"><i class="bi bi-ui-checks-grid" aria-hidden="true"></i></span>
           <span class="nav-text">Create Category</span>
         </a> 
-        <a class="nav-link" href="{{'categoryshow'}}">
+        <a class="nav-link" href="{{ route('view_category') }}">
           <span class="nav-icon"><i class="bi bi-ui-checks-grid" aria-hidden="true"></i></span>
           <span class="nav-text">All Categories</span>
         </a>
