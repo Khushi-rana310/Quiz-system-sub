@@ -15,39 +15,55 @@ class LoginController extends Controller
         return view('user/login');
     }
 
-    public function login(Request $request){
-            // Validate the request
-            $request->validate([
-                'username' => 'required',
-                'password' => 'required|min:6',
-            ]);
+    public function login(Request $request)
 
-            // Check if the user exists
-            $user = Usermodel::where('username', $request->username)
-                            ->where('password', $request->password)
-                            ->first();
+{
+    // Validate the request
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|min:6',
+    ]);
 
-            if ($user) {
-                // Store user data in session
-                Session::put('users', $user);
+    // Check if the user exists
+    $user = Usermodel::where('email', $request->email)
+                     ->where('password', $request->password)
+                     ->first();
 
-                // Redirect to dashboard
-                return redirect()->route('user.dashboard');
-            }
+    if ($user) {
+        // Store user data in session
+        Session::put('users', $user);
 
-            // Invalid credentials
-            return back()->withErrors([
-                'login' => 'Invalid username or password.'
-            ])->withInput();
+        // Redirect to dashboard
+        $username = $user->name;
+        //  return redirect()->route('user.dashboard',compact('username'));
+         return view('user.dashboard',compact('username'));
     }
 
-    public function dashboard(){
-        if(Session::has('users')){
-            $categories = Catergory::withCount('quizs')->get();
-           return view('user/dashboard',compact('categories'));
-        }else{
-           return redirect('login');   
-        }
+    // Invalid credentials
+    return back()->withErrors([
+        'login' => 'Invalid email or password.'
+    ])->withInput();
+}
+    
+
+     public function Register(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'name' => 'required|min:3|max:50',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        // Create a new user
+        $user = new Usermodel();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password); // Hash the password
+        $user->save();
+      
+        // Redirect to login page with success message
+        return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
     }
 
     public function logout(){
