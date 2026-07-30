@@ -16,15 +16,16 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
+
 {
     // Validate the request
     $request->validate([
-        'username' => 'required',
+        'email' => 'required|email',
         'password' => 'required|min:6',
     ]);
 
     // Check if the user exists
-    $user = Usermodel::where('username', $request->username)
+    $user = Usermodel::where('email', $request->email)
                      ->where('password', $request->password)
                      ->first();
 
@@ -33,14 +34,37 @@ class LoginController extends Controller
         Session::put('users', $user);
 
         // Redirect to dashboard
-        return redirect()->route('user.dashboard');
+        $username = $user->name;
+        //  return redirect()->route('user.dashboard',compact('username'));
+         return view('user.dashboard',compact('username'));
     }
 
     // Invalid credentials
     return back()->withErrors([
-        'login' => 'Invalid username or password.'
+        'login' => 'Invalid email or password.'
     ])->withInput();
 }
+    
+
+     public function Register(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'name' => 'required|min:3|max:50',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        // Create a new user
+        $user = new Usermodel();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password); // Hash the password
+        $user->save();
+      
+        // Redirect to login page with success message
+        return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
+    }
 
     public function dashboard()
     {

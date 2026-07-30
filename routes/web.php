@@ -37,3 +37,6 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::get('/dashboard', [LoginController::class, 'dashboard'])->name('user.dashboard');
 
+//User Registration
+Route::get('/register', [LoginController::class, 'Register'])->name('register');
+Route::post('/register', [LoginController::class, 'Register'])->name('register.submit');

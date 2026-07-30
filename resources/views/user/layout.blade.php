@@ -391,7 +391,8 @@
                                 <div class="avatar me-1">
                                     <img src="assets/images/avatar/avatar-s-1.png" alt="" srcset="">
                                 </div>
-                                <div class="d-none d-md-block d-lg-inline-block">Hi, Saugi</div>
+                                {{-- <div class="d-none d-md-block d-lg-inline-block">{{ Session::get('users')->name }}</div> --}}
+                                <div class="d-none d-md-block d-lg-inline-block">{{ $username }}</div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
@@ -413,7 +414,7 @@
                         <p>2020 &copy; Voler</p>
                     </div>
                     <div class="float-end">
-                        <p>Crafted with <span class='text-danger'><i data-feather="heart"></i></span> by <a href="http://ahmadsaugi.com/">Ahmad Saugi</a></p>
+                        <p>Crafted with <span class='text-danger'><i data-feather="heart"></i></span> by Khushi & Kapil</a></p>
                     </div>
                 </div>
             </footer>

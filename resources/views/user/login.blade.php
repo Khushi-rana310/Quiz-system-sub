@@ -37,7 +37,7 @@
                         @endif
                             <label for="username">Username</label>
                             <div class="position-relative">
-                                <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" required>
+                                <input type="text" class="form-control" id="username" name="email" value="{{ old('email') }}" required>
                                 <div class="form-control-icon">
                                     <i data-feather="user"></i>
                                 </div>
@@ -67,8 +67,9 @@
                         </div>
                         <div class="clearfix">
                             <button class="btn btn-primary float-end">Submit</button>
+                            
                         </div>
-                    </form>
+                    </form><a href="{{ '/' }}" class="btn btn-primary">Register</a>
                     {{-- <div class="divider">
                         <div class="divider-text">OR</div>
                     </div>

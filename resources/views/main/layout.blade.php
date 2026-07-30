@@ -269,30 +269,57 @@
             </div>
           </div>
 
-          <form class="mt-3">
+          <form class="mt-3" action="{{ route('register.submit') }}" method="POST">
+            @csrf
+            @if ($errors->has('register'))
+                    <div class="alert alert-danger">
+                    {{ $errors->first('register') }}
+                </div>
+             @endif
             <div class="mb-3">
               <label for="fullName" class="form-label">Full name</label>
-              <input id="fullName" type="text" class="form-control" placeholder="Jane Doe" required>
-              <div class="invalid-feedback">Please enter your name.</div>
+              <input id="fullName" type="text" class="form-control  @error('name') is-invalid @enderror" name='name' placeholder="Enter your name" value="{{ old('name') }}"  required>
+               @error('name')
+              <div class="invalid-feedback">
+                  {{ $message }}
+              </div>
+              @enderror
+              {{-- <div class="invalid-feedback">Please enter your name.</div> --}}
+             
             </div>
 
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
-              <input id="email" type="email" class="form-control" placeholder="name@example.com" required>
-              <div class="invalid-feedback">Please enter a valid email.</div>
+              <input id="email" type="email" class="form-control  @error('email') is-invalid @enderror" name='email' placeholder="Enter your email" value="{{ old('email') }}" required>
+               @error('email')
+              <div class="invalid-feedback">
+                  {{ $message }}
+              </div>
+              @enderror
+              {{-- <div class="invalid-feedback">Please enter a valid email.</div> --}}
             </div>
 
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input id="password" type="password" class="form-control" placeholder="Create a password" required
+              <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name='password' placeholder="Create a password" value="{{ old('password') }}" required
                 minlength="6">
-              <div class="invalid-feedback">Please provide a password (min 6 characters).</div>
+               @error('password')
+              <div class="invalid-feedback">
+                  {{ $message }}
+              </div>
+              @enderror
+              {{-- <div class="invalid-feedback">Please provide a password (min 6 characters).</div> --}}
             </div>
 
             <div class="mb-3">
               <label for="confirmPassword" class="form-label">Confirm password</label>
-              <input id="confirmPassword" type="password" class="form-control" placeholder="Repeat password" required>
-              <div class="invalid-feedback">Passwords must match.</div>
+              <input id="confirmPassword" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name='password_confirmation' placeholder="Repeat password"  required>
+               @error('password_confirmation')
+              <div class="invalid-feedback">
+                  {{ $message }}
+              </div>
+              @enderror
+              {{-- <div class="invalid-feedback">Passwords must match.</div> --}}
             </div>
 
             <div class="mb-3 form-check">
@@ -304,8 +331,14 @@
             <div>
 
               <button class="btn btn-primary" type="submit">Sign up</button>
+              {{-- <a class="btn btn-primary" type="button" data-bs-toggle="modal" href="{{ route('login') }}" >
+                Login
+              </a> --}}
             </div>
           </form>
+          <a class="btn btn-primary" type="button" href="{{ route('login') }}" >
+                Login
+          </a>
         </div>
 
       </div>
