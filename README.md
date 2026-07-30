@@ -2,6 +2,8 @@
 
 Quiz System is a web-based application that allows users to take quizzes online, view their scores, and manage quiz-related activities. The system also provides an admin panel to create and manage categories, quizzes, questions, and users.
 
+<h3>Dashboard</h3>
+<img src="screenshots/home.png" width="700">
 
 ✨ Features
 User Features
