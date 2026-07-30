@@ -47,3 +47,6 @@ Route::post('submitmcq/{qid}',[Dashboard::class,'mcq_submit'])->name('Submitmcqs
 
 
 
+//User Registration
+Route::get('/register', [LoginController::class, 'Register'])->name('register');
+Route::post('/register', [LoginController::class, 'Register'])->name('register.submit');
