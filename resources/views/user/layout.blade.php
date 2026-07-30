@@ -70,7 +70,7 @@
                                     <img src="assets/images/avatar/avatar-s-1.png" alt="" srcset="">
                                 </div>
                                 {{-- <div class="d-none d-md-block d-lg-inline-block">{{ Session::get('users')->name }}</div> --}}
-                                <div class="d-none d-md-block d-lg-inline-block">{{ $username }}</div>
+                                <div class="d-none d-md-block d-lg-inline-block">{{ session('users')->name }}</div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="#"><i data-feather="user"></i> Profile</a>

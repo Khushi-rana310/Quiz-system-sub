@@ -36,7 +36,7 @@ class LoginController extends Controller
         // Redirect to dashboard
         $username = $user->name;
         //  return redirect()->route('user.dashboard',compact('username'));
-         return view('user.dashboard',compact('username'));
+         return redirect('dashboard');
     }
 
     // Invalid credentials
@@ -65,6 +65,16 @@ class LoginController extends Controller
         // Redirect to login page with success message
         return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
     }
+
+        public function dashboard(){
+        if(Session::has('users')){
+            $categories = Catergory::withCount('quizs')->get();
+           return view('user/dashboard',compact('categories'));
+        }else{
+           return redirect('login');  
+        }
+    }
+ 
 
     public function logout(){
         if(Session::has('users')){
