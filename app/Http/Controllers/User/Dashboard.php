@@ -14,6 +14,8 @@ use App\Models\User\Mcqrecord;
 use Carbon\Carbon;
 class Dashboard extends Controller
 {
+
+
   public function QuizList($id,$cat_name){
      
      if(Session::has('users')){
@@ -60,7 +62,7 @@ class Dashboard extends Controller
   }
 
 
-public function mcq_submit(Request $request , $id){
+  public function mcq_submit(Request $request , $id){
  $categories = Catergory::withCount('quizs')->get(); 
  $currentquiz =  Session::get('currenQuiz');
  $currentquiz['currentMCq'] += 1;
@@ -69,7 +71,7 @@ public function mcq_submit(Request $request , $id){
  
  $isexist = Mcqrecord::where([['mcq_id', '=', $request->mcq_id],['record_id', '=', $currentquiz['record_id']]])->count();
  
-if($isexist < 1){
+   if($isexist < 1){
       $mcq_record = new Mcqrecord();
       $mcq_record->record_id = $currentquiz['record_id'];
       $mcq_record->user_id = Session::get('users')->id;
@@ -87,14 +89,27 @@ if($isexist < 1){
 
       if($mcq_detail){ 
          return view('user.mcqs',compact('categories','mcq_detail'));
-      }
-   }else{
-         $record_data = Mcqrecord::where('record_id',$currentquiz['record_id'])->get();
-         return view('user.mcqresult',compact('categories','record_data'));
+      }else{
+         $record_data = Mcqrecord::withmcqquestion()->where('record_id',$currentquiz['record_id'])->get();
+         $corect_count = Mcqrecord::where([
+            ['record_id','=',$currentquiz['record_id']],['is_corrrect','=','1']
+            ])->count();
+            $record_update = UserquizModel::find($currentquiz['record_id']);
+            $record_update->status = 2;
+            $record_update->save();
+         return view('user.mcqresult',compact('categories','record_data','corect_count'));
          // return "result page";
       }
-}
+   }
+  }  
 
+
+ public function quiz_details(){
+   $categories = Catergory::withCount('quizs')->get();
+   $user_id = Session::get('users')->id;
+   $record_data = UserquizModel::Withgetquiz()->where('user_id',$user_id)->get();
+   return view('user.quizhistory',compact('categories','record_data'));
+}
 }
 
 

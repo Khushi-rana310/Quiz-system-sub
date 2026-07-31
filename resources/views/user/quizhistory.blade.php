@@ -5,8 +5,8 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title">Quiz Result</h4>
-        <h4 class="card-title">Total Correct : {{ $corect_count }}</h4>
+        <h4 class="card-title">Quiz Attempt History</h4>
+    
       </div>
       <div class="card-content">
         <div class="card-body">
@@ -17,27 +17,29 @@
               <thead>
                 <tr>
                   <th>Sr no.</th>
-                  <th>Question</th>
-                  <th>Result</th>
+                  <th>Quiz Name</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                   @php
                   $srno = 1;
                   @endphp
+              
                   @foreach( $record_data as $data)                
-                <tr>
+                  <tr>
                   <td class="text-bold-500">{{ $srno++ }}</td>
-                  <td>{{ $data->question }}</td>
+                  <td>{{ $data->name }}</td>
                   <td>
-                  @if($data->is_corrrect == 1)
-                  <span class="badge bg-success">Correct</span>
-                  @else
-                  <span class="badge bg-danger">Wrong</span>
+                  @if($data->status == 1)
+                  <span class="badge bg-danger">Not Completed</span>
+                  @elseif($data->status == 2)
+                  <span class="badge bg-success">Completed</span>
                   @endif
                   </td>
                 </tr>
                  @endforeach
+               
               </tbody>
             </table>
           </div>
