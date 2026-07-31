@@ -33,7 +33,7 @@
                         </li>
                         
                         <li class="sidebar-item  has-sub">
-                                <a href="#" class='sidebar-link'>
+                                <a href="{{ route('user.dashboard') }}" class='sidebar-link'>
                                     <i data-feather="triangle" width="20"></i> 
                                     <span>Quiz</span>
                                 </a>
@@ -44,6 +44,11 @@
                                     @endforeach
                                     
                                 </ul>
+
+                                <a href="{{ route('Quizdetails') }}" class='sidebar-link'>
+                                    <i data-feather="triangle" width="20"></i> 
+                                    <span>Quiz Details</span>
+                                </a>                                
                                 
                         </li>
 
@@ -70,7 +75,7 @@
                                     <img src="assets/images/avatar/avatar-s-1.png" alt="" srcset="">
                                 </div>
                                 {{-- <div class="d-none d-md-block d-lg-inline-block">{{ Session::get('users')->name }}</div> --}}
-                                <div class="d-none d-md-block d-lg-inline-block">{{ $userdetail->name }}</div>
+                                <div class="d-none d-md-block d-lg-inline-block">{{ session('users')->name }}</div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="#"><i data-feather="user"></i> Profile</a>

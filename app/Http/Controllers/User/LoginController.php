@@ -79,6 +79,15 @@ class LoginController extends Controller
     }
     
 
+    // public function dashboard(){
+    //     if(Session::has('users')){
+    //         $categories = Catergory::withCount('quizs')->get();
+    //        return view('user/dashboard',compact('categories'));
+    //     }else{
+    //        return redirect('login');  
+    //     }
+    // }
+
     public function logout(){
         if(Session::has('users')){
            Session::forget('users');
