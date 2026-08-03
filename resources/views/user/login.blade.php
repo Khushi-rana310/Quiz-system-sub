@@ -22,11 +22,18 @@
         <div class="col-md-5 col-sm-12 mx-auto">
             <div class="card pt-4">
                 <div class="card-body">
+
                     <div class="text-center mb-5">
                         <img src={{ asset('user/images/favicon.svg') }} height="48" class='mb-4'>
                         <h3>Sign In</h3>
                         <p>Please sign in to continue to Voler.</p>
                     </div>
+                    <p>@if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                     @endif
+                    </p>
                     <form action="{{ route('login.submit') }}" method="POST">
                         @csrf
                         <div class="form-group position-relative has-icon-left">

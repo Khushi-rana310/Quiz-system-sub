@@ -25,7 +25,7 @@
                     
                     
                         <li class="sidebar-item active ">
-                                <a href="index-2.html" class='sidebar-link'>
+                                <a href="{{ route('user.dashboard') }}" class='sidebar-link'>
                                     <i data-feather="home" width="20"></i> 
                                     <span>Dashboard</span>
                                 </a>

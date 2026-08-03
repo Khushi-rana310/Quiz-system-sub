@@ -16,17 +16,38 @@ class Dashboard extends Controller
 {
 
 
-  public function QuizList($id,$cat_name){
-     
-     if(Session::has('users')){
-            $userdetail = Session::get('users');
-            $categories = Catergory::withCount('quizs')->get();
-            $get_quizes = QuizModel::where('category_id',$id)->get();
-           return view('user.quiztable',compact('categories','get_quizes','cat_name','userdetail'));
-        }else{
-           return redirect('login');   
+  public function QuizList(Request $request, $id, $cat_name)
+{
+    if (Session::has('users')) {
+
+        $userdetail = Session::get('users');
+        $categories = Catergory::withCount('quizs')->get();
+
+        if ($request->filled('search')) {
+
+            // Show only searched quizzes of this category
+            $get_quizes = QuizModel::where('category_id', $id)
+                ->where('name', 'like', '%' . $request->search . '%')
+                ->get();
+
+        } else {
+
+            // Show all quizzes of this category
+            $get_quizes = QuizModel::where('category_id', $id)->get();
+
         }
-  }
+
+        return view('user.quiztable', compact(
+            'categories',
+            'get_quizes',
+            'cat_name',
+            'userdetail',
+            'id'
+        ));
+    }
+
+    return redirect('login');
+}
   
   
   public function mcq_questions($quizid,$quizname,$cat_name){
