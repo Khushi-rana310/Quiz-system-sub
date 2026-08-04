@@ -7,15 +7,17 @@ use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\Dashboard;
 
 Route::get('/', [landingpage::class,'index']);
+Route::get('admin_login',[Homepage::class,'login_page']);
+Route::post('admin-login',[Homepage::class,'log_in']);
 
 Route::middleware('AdminAuth')->controller(Homepage::class)->group(function(){
 
 
 Route::get('admindashboard','dashboard')->name('addash');
-Route::get('admin_login','login_page');
-Route::post('admin-login','log_in');
-Route::get('admin_logout', 'admin_logout');
 
+
+Route::get('admin_logout', 'admin_logout');
+Route::get('users_list','userslist');
 Route::get('categories','view_category')->name('create_cat_view');
 Route::post('add_category','add_category');
 

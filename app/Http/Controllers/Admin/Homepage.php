@@ -18,7 +18,7 @@ use App\Models\Admin\Adminmodel;
 use App\Models\Admin\Catergory;
 use App\Models\Admin\QuizModel;
 use App\Models\Admin\McqModal;
-
+use App\Models\User\Usermodel;
 class Homepage extends Controller
 {
     public function login_page(){
@@ -65,11 +65,13 @@ class Homepage extends Controller
         return redirect('admin_login');   
         }
     }
-
-    public function admin_logout(){
-        Session::forget('admin');
-        return redirect('admin_login');
+    
+    public function userslist(){
+       $admin_data = Session::get('admin'); 
+       $all_users = Usermodel::paginate(3);
+       return view('admin.user_list',compact('all_users','admin_data'));
     }
+ 
 
     public function view_category(){
         $admin_data =  Session::get('admin');
@@ -260,5 +262,8 @@ class Homepage extends Controller
         }
     }
 
-    
+       public function admin_logout(){
+        Session::forget('admin');
+        return redirect('admin_login');
+    }
 }   
