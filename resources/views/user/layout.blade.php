@@ -25,7 +25,7 @@
                     
                     
                         <li class="sidebar-item active ">
-                                <a href="index-2.html" class='sidebar-link'>
+                                <a href="{{ route('user.dashboard') }}" class='sidebar-link'>
                                     <i data-feather="home" width="20"></i> 
                                     <span>Dashboard</span>
                                 </a>
@@ -33,7 +33,7 @@
                         </li>
                         
                         <li class="sidebar-item  has-sub">
-                                <a href="#" class='sidebar-link'>
+                                <a href="{{ route('user.dashboard') }}" class='sidebar-link'>
                                     <i data-feather="triangle" width="20"></i> 
                                     <span>Quiz</span>
                                 </a>
@@ -44,6 +44,11 @@
                                     @endforeach
                                     
                                 </ul>
+
+                                <a href="{{ route('Quizdetails') }}" class='sidebar-link'>
+                                    <i data-feather="triangle" width="20"></i> 
+                                    <span>Quiz Details</span>
+                                </a>                                
                                 
                         </li>
 

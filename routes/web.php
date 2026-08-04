@@ -8,7 +8,8 @@ use App\Http\Controllers\User\Dashboard;
 
 Route::get('/', [landingpage::class,'index']);
 
-Route::controller(Homepage::class)->group(function(){
+Route::middleware('AdminAuth')->controller(Homepage::class)->group(function(){
+
 
 Route::get('admindashboard','dashboard')->name('addash');
 Route::get('admin_login','login_page');
@@ -33,15 +34,22 @@ Route::get('quiz_list/{id}/{name}','quiz_list')->name('quizlist');
 
 });
 
+Route::middleware('UserAuth')->group(function(){
+  Route::get('quizdetails', [Dashboard::class, 'quiz_details'])->name('Quizdetails');
+});
+
 //user Login
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('login', [LoginController::class, 'login'])->name('login.submit');
 Route::get('dashboard', [LoginController::class, 'dashboard'])->name('user.dashboard');
+// Route::get('search-quiz/{id}', [LoginController::class, 'searchQuiz'])->name('search.quiz');
+
 
 Route::get('userlogout',[LoginController::class,'logout'])->name('user_logout');
 Route::get('userform',[LoginController::class,'logout'])->name('user_logout');
-Route::get('userQuizlist/{id}/{name}',[Dashboard::class,'QuizList'])->name('UserQuizlist');
+Route::get('userQuizlist/{id}/{cat_name}',[Dashboard::class,'QuizList'])->name('UserQuizlist');
 Route::get('mcqs/{quizid}/{quizname}/{cat_name}',[Dashboard::class,'mcq_questions'])->name('mcqs');
+Route::get('verify-email',[LoginController::class,'verifyUser']);
 
 Route::post('submitmcq/{qid}',[Dashboard::class,'mcq_submit'])->name('Submitmcqs');
 

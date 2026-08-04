@@ -12,20 +12,31 @@
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z" />
               </svg></span>
+              
+              
             <span class="ms-1">New Courses Available</span></span>
+            <h1>@if(session('verification_alert'))
+              <div class="alert alert-warning">
+                  {{ session('verification_alert') }}
+              </div>
+          @endif</h1>
           <h1 class="display-4 fw-bold  mt-4">
             Enhance your learning with <span class="text-primary">Expert Mentors</span> and
             <span class="text-primary">Online Anytime,</span>
             Anywhere
           </h1>
-
+          {{-- <h1>@if(session('verification_alert'))
+              <div class="alert alert-warning">
+                  {{ session('verification_alert') }}
+              </div>
+          @endif</h1> --}}
           <p class="my-6 lead fw-normal">
             Join over 50,000+ students learning from world-class mentors. Transform your career with industry-leading
             courses.
           </p>
           <div class="d-flex flex-md-row flex-column justify-content-start   gap-3">
             <a href="#!" class="btn btn-primary">
-
+              
               <span>Start Learning</span>
               <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"

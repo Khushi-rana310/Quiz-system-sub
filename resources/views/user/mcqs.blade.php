@@ -31,29 +31,30 @@
                                     @csrf
                                     <div class="form-body">
                                         <div class="row">
+                                           <input type="hidden" name="mcq_id" value="{{$mcq_detail->id}}"> 
                                            <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="option" value="{{ $mcq_detail->a }}">
+                                                    <input class="form-check-input" type="radio" name="option" value="a">
                                                     <label class="form-check-label" for="flexRadioDefault2">
                                                         {{ $mcq_detail->a }}
                                                     </label>
                                             </div>
 
                                             <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="option" value="{{ $mcq_detail->b }}">
+                                                    <input class="form-check-input" type="radio" name="option" value="b">
                                                     <label class="form-check-label" for="flexRadioDefault2">
                                                         {{ $mcq_detail->b }}
                                                     </label>
                                                 </div>
                                                 
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="option" value="{{ $mcq_detail->c }}">
+                                                    <input class="form-check-input" type="radio" name="option" value="c">
                                                     <label class="form-check-label" for="flexRadioDefault2">
                                                         {{ $mcq_detail->c }}
                                                     </label>
                                                 </div>
                                                 
                                             <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="option" value="{{ $mcq_detail->d }}">
+                                                    <input class="form-check-input" type="radio" name="option" value="d">
                                                     <label class="form-check-label" for="flexRadioDefault2">
                                                         {{ $mcq_detail->d }}
                                                     </label>

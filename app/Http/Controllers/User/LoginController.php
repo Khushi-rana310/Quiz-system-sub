@@ -8,9 +8,15 @@ use Illuminate\Support\Facades\Session;
 use App\Models\User\Usermodel;
 use App\Models\Admin\Catergory;
 
-
+use App\Models\Admin\QuizModel;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\verifyUser;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
+///+vQ&tjTL8yeTPg
 class LoginController extends Controller
 {
+    
     public function index() {
         return view('user/login');
     }
@@ -25,10 +31,16 @@ class LoginController extends Controller
     ]);
 
     // Check if the user exists
-    $user = Usermodel::where('email', $request->email)
-                     ->where('password', $request->password)
-                     ->first();
+$user = Usermodel::where('email', $request->email)->first();
 
+if ($user && Hash::check($request->password, $user->password)) {
+  
+
+
+    // $link=crypt::encryptString($user->email);
+    // $link = url('/verify-email?token=' . $link);
+    // Mail::to($user->email)->send(new verifyUser($link));
+                      
     if ($user) {
         // Store user data in session
         Session::put('users', $user);
@@ -44,7 +56,7 @@ class LoginController extends Controller
         'login' => 'Invalid email or password.'
     ])->withInput();
 }
-    
+}    
 
      public function Register(Request $request)
     {
@@ -54,16 +66,34 @@ class LoginController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ]);
-
+  
         // Create a new user
         $user = new Usermodel();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password); // Hash the password
-        $user->save();
+        $user->is_verified=0;
+        $user->save();  
+       
+        $link=crypt::encryptString($user->email);
+        $link = url('/verify-email?token=' . $link);
+        Mail::to($user->email)->send(new verifyUser($link));
+        return redirect('/')->with('verification_alert', 'Please verify your email before logging in.');
+
+
+    //    if($user->is_verified==0){
+        // $user->save();
+    //     return redirect()->route('login')->with('success', '. Please verify your email before logging in.');
+    //    }
+    //    else{
+    
+    
+    //     return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
+    //    }
+        
       
         // Redirect to login page with success message
-        return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
+        // return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
     }
 
         public function dashboard(){
@@ -82,4 +112,16 @@ class LoginController extends Controller
            return redirect('login');
         }
     }
+
+    // public function searchQuiz(Request $request, $cat_name){
+    //     $request->validate([
+    //         'search' => 'required|string|max:200',
+    //     ]);
+      
+    //     $Quizdata = QuizModel::where('name', 'like', '%' . $request->search . '%')->get();
+       
+    //     return view('user/quiztable', compact('Quizdata','cat_name'));
+    // }
+
+    
 }
