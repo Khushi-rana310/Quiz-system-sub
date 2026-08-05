@@ -76,6 +76,7 @@
                             <button class="btn btn-primary float-end">Submit</button>
                             
                         </div>
+                        <a href="{{ '/forgot-password' }}" class="btn btn-primary">Forgot Password?</a>
                     </form><a href="{{ '/' }}" class="btn btn-primary">Register</a>
                     {{-- <div class="divider">
                         <div class="divider-text">OR</div>

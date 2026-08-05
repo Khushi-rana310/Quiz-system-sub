@@ -11,6 +11,7 @@ use App\Models\Admin\Catergory;
 use App\Models\Admin\QuizModel;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\verifyUser;
+use App\Mail\UserForgotPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 ///+vQ&tjTL8yeTPg
@@ -33,7 +34,7 @@ class LoginController extends Controller
     // Check if the user exists
 $user = Usermodel::where('email', $request->email)->first();
 
-if ($user && Hash::check($request->password, $user->password)) {
+// if ($user && Hash::check($request->password, $user->password)) {
   
 
 
@@ -55,7 +56,7 @@ if ($user && Hash::check($request->password, $user->password)) {
     return back()->withErrors([
         'login' => 'Invalid email or password.'
     ])->withInput();
-}
+
 }    
 
      public function Register(Request $request)
@@ -98,7 +99,7 @@ if ($user && Hash::check($request->password, $user->password)) {
 
         public function dashboard(){
         if(Session::has('users')){
-            $categories = Catergory::withCount('quizs')->get();
+             $categories = Catergory::withCount('quizs')->orderBy('quizs_count', 'desc')->take(5)->get();
            return view('user/dashboard',compact('categories'));
         }else{
            return redirect('login');  
@@ -122,6 +123,38 @@ if ($user && Hash::check($request->password, $user->password)) {
        
     //     return view('user/quiztable', compact('Quizdata','cat_name'));
     // }
-
     
+
+    public function showForgotPasswordForm(){
+        return view('user.forgot');
+    }
+    public function sendPasswordResetLink(Request $request){
+        $link=crypt::encryptString($request->email);
+        $link = url('/user-forgot-password/' . $link);
+        Mail::to($request->email)->send(new UserForgotPassword($link));
+        return $request;
+    }
+
+    public function showResetPasswordForm($email){
+        $orginalEmail=Crypt::decryptString($email);
+        return view('user.setForgot-password',['email' => $orginalEmail]);   
+    }
+    public function setresetpassword(Request $request){
+  
+        $request->validate([
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $user = Usermodel::where([
+            ['email',$request->user_email],['is_verified',1]
+         ])->first();
+ 
+        if($user){
+           $user->password = Hash::make($request->password);
+           $user->save();
+           return redirect('/login');     
+        }else{
+            return redirect('/login')->with('error',"User not verified"); 
+        }
+    }
 }

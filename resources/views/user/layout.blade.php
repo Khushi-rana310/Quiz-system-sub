@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ asset('user/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('user/css/app.css') }}">
     <link rel="shortcut icon" href="{{ asset('user/images/favicon.svg') }}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+ 
 </head>
 <body>
     <div id="app">
@@ -80,7 +82,7 @@
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="#"><i data-feather="user"></i> Profile</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ 'userlogout' }}"><i data-feather="log-out"></i> Logout</a>
+                                <a class="dropdown-item" href="{{ '/userlogout' }}"><i data-feather="log-out"></i> Logout</a>
                             </div>
                         </li>
                     </ul>

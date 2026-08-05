@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+
 use App\Models\Admin\Catergory;
 use App\Models\Admin\QuizModel;
 use App\Models\Admin\McqModal;
@@ -134,7 +135,7 @@ $userdetail = Session::get('users');
    $categories = Catergory::withCount('quizs')->get();
    $user_id = Session::get('users')->id;
     $userdetail = Session::get('users');
-   $record_data = UserquizModel::Withgetquiz()->where('user_id',$user_id)->get();
+    $record_data = UserquizModel::Withgetquiz()->where('user_id',$user_id)->paginate(5);
    return view('user.quizhistory',compact('categories','record_data','userdetail'));
 
 }

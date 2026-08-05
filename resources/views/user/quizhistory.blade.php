@@ -25,7 +25,7 @@
                   @php
                   $srno = 1;
                   @endphp
-              
+           
                   @foreach( $record_data as $data)                
                   <tr>
                   <td class="text-bold-500">{{ $srno++ }}</td>
@@ -39,11 +39,20 @@
                   </td>
                 </tr>
                  @endforeach
-               
+                
               </tbody>
             </table>
+            <div class="">
+                {{ $record_data->links() }}
+            </div>
+          
           </div>
+          </div>
+          </div>
+          </div>
+           
         </div>
+        
       </div>
     </div>
   </div>

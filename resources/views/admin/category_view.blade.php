@@ -58,6 +58,9 @@
                 @endforeach
                 </tbody>
               </table>
+              <div class="d-flex justify-content-center mt-3">
+                {{ $category_table->links() }}
+              </div>
             </div>
           </section>
         </div>

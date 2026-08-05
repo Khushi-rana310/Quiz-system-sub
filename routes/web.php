@@ -10,9 +10,6 @@ Route::get('/', [landingpage::class,'index']);
 Route::get('admin_login',[Homepage::class,'login_page']);
 Route::post('admin-login',[Homepage::class,'log_in']);
 
-Route::get('admin_login',[Homepage::class,'login_page']);
-Route::post('admin-login',[Homepage::class,'log_in']);
-
 Route::middleware('AdminAuth')->controller(Homepage::class)->group(function(){
 
 
@@ -50,6 +47,10 @@ Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('login', [LoginController::class, 'login'])->name('login.submit');
 Route::get('dashboard', [LoginController::class, 'dashboard'])->name('user.dashboard');
 // Route::get('search-quiz/{id}', [LoginController::class, 'searchQuiz'])->name('search.quiz');
+Route::get('forgot-password', [LoginController::class, 'showForgotPasswordForm'])->name('forgot.password');
+Route::post('forgot-password', [LoginController::class, 'sendPasswordResetLink'])->name('forgot.password.submit');
+Route::get('user-forgot-password/{token}', [LoginController::class, 'showResetPasswordForm'])->name('reset.password');
+Route::post('reset_pwd', [LoginController::class, 'setresetpassword']);
 
 
 Route::get('userlogout',[LoginController::class,'logout'])->name('user_logout');
@@ -57,8 +58,11 @@ Route::get('userform',[LoginController::class,'logout'])->name('user_logout');
 Route::get('userQuizlist/{id}/{cat_name}',[Dashboard::class,'QuizList'])->name('UserQuizlist');
 Route::get('mcqs/{quizid}/{quizname}/{cat_name}',[Dashboard::class,'mcq_questions'])->name('mcqs');
 Route::get('verify-email',[LoginController::class,'verifyUser']);
-
 Route::post('submitmcq/{qid}',[Dashboard::class,'mcq_submit'])->name('Submitmcqs');
+
+// categories pagination
+
+Route::get('categories-list', [Dashboard::class, 'categories'])->name('categories.pagination');
 
 
 

@@ -130,7 +130,7 @@ class Homepage extends Controller
     }
 
     public function category_view(){
-        $category_table = Catergory::with('creator')->get();
+        $category_table = Catergory::with('creator')->paginate(5);
         $admin_data = Session::get('admin');
         // return $category_table;
         return view('admin.category_view',compact('admin_data','category_table'));

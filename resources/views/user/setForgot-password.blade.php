@@ -24,16 +24,26 @@
                 <div class="card-body">
                     <div class="text-center mb-5">
                         <img src="assets/images/favicon.svg" height="48" class='mb-4'>
-                        <h3>Forgot Password</h3>
-                        <p>Please enter your email to receive password reset link.</p>
+                        <h3>Reset Password</h3>
+                        <p>Please reset your password.</p>
                     </div>
-                    <form action="{{ route('forgot.password') }}" method="POST">
-                        @csrf
+                    <form action="/reset_pwd" method="POST">
+                        @csrf   
+                        <input type="hidden" value="{{ $email }}"  name="user_email">
                         <div class="form-group">
-                            <label for="first-name-column">Email</label>
-                            <input type="email" id="first-name-column" class="form-control" name="email" required>
+                            <label for="first-name-column">Password</label>
+                            <input type="password" id="first-name-column" class="form-control" name="password" value="" required>
                         </div>
-
+                        @error('password')
+                        <div>{{ $message }}</div>
+                        @enderror
+                        <div class="form-group">
+                            <label for="first-name-column">Confirm Password</label>
+                            <input type="password" id="first-name-column" class="form-control" name="password_confirmation" value="" required>
+                        </div>                        
+                         @error('password_confirmation')
+                         <div>{{ $message }}</div>
+                         @enderror
                         <div class="clearfix">
                             <button class="btn btn-primary float-end">Submit</button>
                         </div>
