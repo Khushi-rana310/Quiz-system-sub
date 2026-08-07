@@ -16,7 +16,6 @@ use Carbon\Carbon;
 class Dashboard extends Controller
 {
 
-
   public function QuizList(Request $request, $id, $cat_name)
 {
     if (Session::has('users')) {
@@ -32,12 +31,10 @@ class Dashboard extends Controller
                 ->get();
 
         } else {
-
             // Show all quizzes of this category
             $get_quizes = QuizModel::where('category_id', $id)->get();
 
         }
-
         return view('user.quiztable', compact(
             'categories',
             'get_quizes',
@@ -79,14 +76,11 @@ $userdetail = Session::get('users');
          Session::put('currenQuiz',$currentquiz);
          return view('user.mcqs',compact('categories','mcq_detail','userdetail'));
 
-
-
-     
-   
   }
-
-
   public function mcq_submit(Request $request , $id){
+         $validate = $request->validate([
+         'option'=>'required'
+      ]);
 $userdetail = Session::get('users');
  $categories = Catergory::withCount('quizs')->get(); 
  $currentquiz =  Session::get('currenQuiz');
@@ -97,7 +91,12 @@ $userdetail = Session::get('users');
  
  $isexist = Mcqrecord::where([['mcq_id', '=', $request->mcq_id],['record_id', '=', $currentquiz['record_id']]])->count();
  
-   if($isexist < 1){
+
+
+   if($isexist < 1 && $validate){
+
+
+     
       $mcq_record = new Mcqrecord();
       $mcq_record->record_id = $currentquiz['record_id'];
       $mcq_record->user_id = Session::get('users')->id;
@@ -109,7 +108,6 @@ $userdetail = Session::get('users');
          $mcq_record->is_corrrect = 0;
       }
       $mcq_record->selected_ans  = $request->option;
-      
       $mcq_record->created_at = now();
       $mcq_record->save();
 
@@ -130,7 +128,13 @@ $userdetail = Session::get('users');
    }
   }  
 
-
+  public function showMcq($id){
+   $currentquiz = Session::get('currenQuiz');
+   $categories = Catergory::withCount('quizs')->get(); 
+   $mcq_detail = McqModal::where([['id', '>', $id],['quiz_id', '=', $currentquiz['quiz_id']]])->first();
+   $userdetail = Session::get('users');
+   return view('user.mcqs',compact('categories','mcq_detail','userdetail'));
+  }
  public function quiz_details(){
    $categories = Catergory::withCount('quizs')->get();
    $user_id = Session::get('users')->id;

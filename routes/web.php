@@ -57,7 +57,8 @@ Route::get('userlogout',[LoginController::class,'logout'])->name('user_logout');
 Route::get('userform',[LoginController::class,'logout'])->name('user_logout');
 Route::get('userQuizlist/{id}/{cat_name}',[Dashboard::class,'QuizList'])->name('UserQuizlist');
 Route::get('mcqs/{quizid}/{quizname}/{cat_name}',[Dashboard::class,'mcq_questions'])->name('mcqs');
-Route::get('verify-email',[LoginController::class,'verifyUser']);
+Route::get('verify-email/{email}',[LoginController::class,'verifyUser']);
+Route::get('/submitmcq/{id}', [Dashboard::class, 'showMcq'])->name('showMcq');
 Route::post('submitmcq/{qid}',[Dashboard::class,'mcq_submit'])->name('Submitmcqs');
 
 // categories pagination

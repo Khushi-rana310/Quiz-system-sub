@@ -77,7 +77,7 @@ $user = Usermodel::where('email', $request->email)->first();
         $user->save();  
        
         $link=crypt::encryptString($user->email);
-        $link = url('/verify-email?token=' . $link);
+        $link = url('/verify-email/' . $link);
         Mail::to($user->email)->send(new verifyUser($link));
         return redirect('/')->with('verification_alert', 'Please verify your email before logging in.');
 
@@ -123,7 +123,17 @@ $user = Usermodel::where('email', $request->email)->first();
        
     //     return view('user/quiztable', compact('Quizdata','cat_name'));
     // }
-    
+    public function verifyUser($email){
+       
+        $orgemail = Crypt::decryptString($email);
+        $find_user = Usermodel::where('email',$orgemail)->first();
+        if($find_user){
+            $find_user->is_verified = 1;
+            $find_user->save();
+            return redirect('/login')->with('success','Email Verified Successfully');
+        }
+ 
+    }
 
     public function showForgotPasswordForm(){
         return view('user.forgot');

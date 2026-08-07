@@ -31,6 +31,9 @@
                                     @csrf
                                     <div class="form-body">
                                         <div class="row">
+                                            @error('option')
+                                            <div>{{ $message }}</div>
+                                            @enderror
                                            <input type="hidden" name="mcq_id" value="{{$mcq_detail->id}}"> 
                                            <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="option" value="a">
